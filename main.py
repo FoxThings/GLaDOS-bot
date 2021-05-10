@@ -91,7 +91,7 @@ def aperture_science(chat_id):
     """
 
     msg = rand.choice(consts.aperture)
-    bot.send_message(chat_id, msg)
+    bot.send_message(chat_id, msg, parse_mode='Markdown')
 
 
 bot.polling(none_stop=True, interval=0)
