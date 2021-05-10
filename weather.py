@@ -13,6 +13,8 @@ def get_weather(city: str):
               'query': city}
     api_result = requests.get('http://api.weatherstack.com/current', params)
     api_response = api_result.json()
-    print(api_response)
     return {'temperature': api_response['current']['temperature'],
-            'ico': api_response['current']['weather_icons'][0]}
+            'ico': api_response['current']['weather_icons'][0],
+            'feelslike': api_response['current']['feelslike'],
+            'visibility': api_response['current']['visibility'],
+            'weather_descriptions': api_response['current']['weather_descriptions'][0]}
