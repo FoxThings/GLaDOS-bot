@@ -13,8 +13,8 @@ def insert(user_id: int, user_name: str, user_surname: str, username: str):
     :param username: Никнейм
     """
     cursor.execute('INSERT INTO database (user_id, user_name, user_surname, username) '
-                   'VALUES (?, ?, ?, ?)'
-                   , (user_id, user_name, user_surname, username))
+                   'VALUES (?, ?, ?, ?)',
+                   (user_id, user_name, user_surname, username))
     conn.commit()
 
 
@@ -24,8 +24,8 @@ def get(user_id: int):
     :param user_id: id пользователя
     :return: строчка пользователя из таблицы
     """
-    cursor.execute('SELECT * FROM database WHERE user_id = ?'
-                   , (user_id, ))
+    cursor.execute('SELECT * FROM database WHERE user_id = ?',
+                   (user_id, ))
     return cursor.fetchall()
 
 
@@ -43,6 +43,6 @@ def delete(user_id: int):
     Удалить пользователя из таблицы
     :param user_id: id пользователя
     """
-    cursor.execute('DELETE FROM database WHERE user_id = ?'
-                   , (user_id, ))
+    cursor.execute('DELETE FROM database WHERE user_id = ?',
+                   (user_id, ))
     conn.commit()
