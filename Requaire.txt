@@ -1,2 +1,0 @@
-pip install gTTs
-pip install pytelegrambotapi
