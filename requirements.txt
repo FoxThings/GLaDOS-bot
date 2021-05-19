@@ -1,2 +1,2 @@
-gTTs=2.2.2
-pytelegrambotapi=3.7.9
+gTTs>=2.2.2
+pytelegrambotapi>=3.7.9
