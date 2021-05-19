@@ -6,6 +6,7 @@ import config
 
 def voice(text: str, lang='ru'):
     """
+    Озвучивает текст
     :param text: Текст озвучки
     :param lang: Язык озвучки
     :return: Название созданного звукового файла

@@ -1,7 +1,9 @@
 menu = [
     'Озвучь',
     'Погода',
-    'Aperture science???'
+    'Aperture science???',
+    'Подписаться',
+    'Отписаться'
 ]
 
 start = 'Напиши /start, чтобы начать....'
