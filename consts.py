@@ -1,10 +1,10 @@
-menu = [
-    'Озвучь',
-    'Погода',
-    'Aperture science???',
-    'Подписаться',
-    'Отписаться'
-]
+menu = {
+    'voice': 'Озвучь',
+    'weather': 'Погода',
+    'aperture': 'Aperture science???',
+    'subscribe': 'Подписаться',
+    'unsubscribe': 'Отписаться'
+}
 
 start = 'Напиши /start, чтобы начать....'
 

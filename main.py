@@ -1,6 +1,7 @@
 import random as rand
 from threading import Thread
 import time
+import os
 
 import telebot
 from telebot import types
@@ -11,11 +12,12 @@ from voice import voice
 import consts
 import db
 
-bot = telebot.TeleBot(config.botToken)
+token = os.getenv('bot_token')
+bot = telebot.TeleBot(token)
 
 
 def check_user(user_id: int):
-    return len(db.get(user_id)) > 0
+    return len(db.get(user_id))
 
 
 def send_menu(user_id):
@@ -25,42 +27,49 @@ def send_menu(user_id):
     """
 
     keyboard = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=1)
-    key = types.InlineKeyboardButton(text=consts.menu[0], callback_data='voice')
+    key = types.InlineKeyboardButton(text=consts.menu['voice'])
     keyboard.add(key)
-    key = types.InlineKeyboardButton(consts.menu[1], callback_data='weather')
+    key = types.InlineKeyboardButton(consts.menu['weather'])
     keyboard.add(key)
-    key = types.InlineKeyboardButton(consts.menu[2], callback_data='aperture')
+    key = types.InlineKeyboardButton(consts.menu['aperture'])
     keyboard.add(key)
-    if not check_user(user_id):
-        key = types.InlineKeyboardButton(consts.menu[3], callback_data='aperture')
-    else:
-        key = types.InlineKeyboardButton(consts.menu[4], callback_data='aperture')
+    option = consts.menu['unsubscribe'] if check_user(user_id)\
+        else consts.menu['subscribe']
+    key = types.InlineKeyboardButton(option)
     keyboard.add(key)
 
     message = rand.choice(consts.hello)
     bot.send_message(user_id, text=message, reply_markup=keyboard)
 
 
-@bot.message_handler(content_types=['text'])
+@bot.message_handler(commands=['start', 'help'])
 def start(message):
+    """
+    Обработчик команд /start и /help
+    :param message: Сообщение
+    :return:
+    """
+    send_menu(message.from_user.id)
+
+
+@bot.message_handler(content_types=['text'])
+def main(message):
     """
     Главный обработчик всех сообщений
     :param message: Сообщение
     """
 
-    if message.text.casefold() == '/start':
-        send_menu(message.from_user.id)
-    elif message.text == consts.menu[0]:
+    if message.text == consts.menu['voice']:
         bot.send_message(message.from_user.id, consts.questions[0])
         bot.register_next_step_handler(message, make_voice)
-    elif message.text == consts.menu[1]:
+    elif message.text == consts.menu['weather']:
         bot.send_message(message.from_user.id, consts.questions[1])
         bot.register_next_step_handler(message, show_weather)
-    elif message.text == consts.menu[2]:
+    elif message.text == consts.menu['aperture']:
         aperture_science(message.from_user.id)
-    elif message.text == consts.menu[3]:
+    elif message.text == consts.menu['subscribe']:
         subscribe(message)
-    elif message.text == consts.menu[4]:
+    elif message.text == consts.menu['unsubscribe']:
         unsubscribe(message)
     else:
         msg = rand.choice(consts.wrong_answer) + '\n' + consts.start
