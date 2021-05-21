@@ -12,7 +12,7 @@ from voice import voice
 import consts
 import db
 
-token = os.getenv('bot_token')
+token = os.getenv('BOT_TOKEN')
 bot = telebot.TeleBot(token)
 
 
