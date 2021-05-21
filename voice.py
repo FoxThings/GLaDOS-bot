@@ -1,7 +1,7 @@
 from gtts import gTTS
 
-import fileManager
 import config
+import fileManager
 
 
 def voice(text: str, lang='ru'):

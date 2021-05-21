@@ -1,19 +1,18 @@
+import os
+import time
 import random as rand
 from threading import Thread
-import time
-import os
 
 import telebot
 from telebot import types
 
-import weather
 import config
-from voice import voice
 import consts
 import db
+import weather
+from voice import voice
 
-token = os.environ.get('BOT_TOKEN')
-bot = telebot.TeleBot(token)
+bot = telebot.TeleBot(os.environ.get(config.botToken))
 
 
 def check_user(user_id: int):
@@ -155,7 +154,7 @@ def mailing():
     """
     users = db.get_all()
     for user in users:
-        aperture_science(user[1])
+        aperture_science(user[consts.db['user_id']])
 
 
 def scheduler():

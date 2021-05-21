@@ -1,3 +1,4 @@
+import os
 import requests
 
 import config
@@ -10,9 +11,9 @@ def get_weather(city: str):
     :return: Данные о погоде
     """
 
-    params = {'access_key': config.weatherToken,
+    params = {'access_key': os.environ.get(config.weatherToken),
               'query': city}
-    api_result = requests.get('http://api.weatherstack.com/current', params)
+    api_result = requests.get(config.weatherURL, params)
     api_response = api_result.json()
     return {'temperature': api_response['current']['temperature'],
             'ico': api_response['current']['weather_icons'][0],

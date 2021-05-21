@@ -1,8 +1,9 @@
 import unittest
 from unittest.mock import MagicMock
 
-import weather
+import consts
 import db
+import weather
 
 
 class BotTests(unittest.TestCase):
@@ -14,7 +15,7 @@ class BotTests(unittest.TestCase):
 
     def test_db(self):
         db.insert(18547, 'a', 'a', 'aaa')
-        self.assertEqual(db.get(18547)[0][4], 'aaa')
+        self.assertEqual(db.get(18547)[0][consts.db['username']], 'aaa')
         db.delete(18547)
 
 
